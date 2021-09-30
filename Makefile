@@ -5,18 +5,23 @@ NAME		=	pipex
 SRC_DIR		=	./src
 OBJ_DIR		=	./obj
 INC_DIR		=	./inc
+UTILS_DIR	=	./utils
 
 CC			=	clang
 CFLAGS		=	-Wall -Wextra -Werror
 INCS		=	-I ${INC_DIR}
 SAN			=	-g3 -fsanitize=address
 
+UTILS		=	ft_putendl_fd.c	\
+				ft_split.c	\
+				ft_strncmp.c
+
 SRCS		=	ft_error_handler.c	\
 				ft_pipex.c	\
 				ft_print_help.c	\
-				ft_putendl_fd.c	\
-				ft_split.c	\
-				ft_strncmp.c
+				${ADD_UTILS_DIR}
+
+ADD_UTILS_DIR	=	${addprefix ${UTILS_DIR}/,${UTILS}}
 
 OBJS		=	${addprefix ${OBJ_DIR}/,${SRCS:.c=.o}}
 
