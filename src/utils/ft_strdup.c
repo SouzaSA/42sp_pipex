@@ -1,21 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_help.c                                    :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/29 13:54:13 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/09/29 15:25:15 by sde-alva         ###   ########.fr       */
+/*   Created: 2021/07/24 14:11:46 by sde-alva          #+#    #+#             */
+/*   Updated: 2021/10/04 11:16:16 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libftpipex.h"
+#include "ft_pipex.h"
 
-int	ft_print_help(char *msg)
+char	*ft_strdup(const char *s)
 {
-	ft_putendl_fd(msg, 2);
-	ft_putendl_fd("Example of use:", 2);
-	ft_putendl_fd("  ./pipex file1 cmd1 cmd2 file2", 2);
-	return (0);
+	int		i;
+	char	*dest;
+
+	i = 0;
+	dest = malloc(ft_strlen(s) * sizeof(char) + 1);
+	if (dest)
+	{
+		while (s[i] != '\0')
+		{
+			dest[i] = s[i];
+			i++;
+		}
+		dest[i] = '\0';
+	}
+	return (dest);
 }

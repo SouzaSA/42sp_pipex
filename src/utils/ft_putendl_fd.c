@@ -6,11 +6,11 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/26 20:46:41 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/09/29 16:58:34 by sde-alva         ###   ########.fr       */
+/*   Updated: 2021/10/04 11:15:18 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libftpipex.h"
+#include "ft_pipex.h"
 
 void	ft_putendl_fd(char *s, int fd)
 {

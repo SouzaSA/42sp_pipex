@@ -1,28 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_error_handler.c                                 :+:      :+:    :+:   */
+/*   ft_get_path.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/29 13:46:43 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/10/04 12:18:47 by sde-alva         ###   ########.fr       */
+/*   Created: 2021/10/02 11:45:00 by sde-alva          #+#    #+#             */
+/*   Updated: 2021/10/04 11:17:33 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_pipex.h"
 
 /* ************************************************************************** */
-/* Responsible for error handling of program.                                 */
+/* Responsible get the environment PATH, and split it into a array of paths.  */
 /* ************************************************************************** */
-int	ft_error_handler(char *msg, int errnum)
+char	**ft_get_path(char **envp)
 {
-	if (errnum == WRONG_PARAMETERS)
-		ft_print_error(msg);
-	else
+	int		i;
+	char	*str;
+	char	**path;
+
+	i = 0;
+	str = NULL;
+	path = NULL;
+	while (envp[i])
 	{
-		errno = errnum;
-		perror(msg);
+		if (ft_strncmp("PATH=", envp[i], 5) == 0)
+			str = ft_strdup(envp[i] + 5);
+		i++;
 	}
-	return (-1);
+	if (str)
+	{
+		path = ft_split(str, ':');
+		free(str);
+	}
+	return (path);
 }

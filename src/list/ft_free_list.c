@@ -1,31 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   ft_free_list.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/23 18:54:48 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/10/04 11:16:52 by sde-alva         ###   ########.fr       */
+/*   Created: 2021/10/03 15:32:30 by sde-alva          #+#    #+#             */
+/*   Updated: 2021/10/04 14:35:04 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_pipex.h"
 
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
+void	ft_free_list(t_cmd_list *lst)
 {
-	size_t	i;
-	int		diff;
+	t_cmd_list	*tmp;
 
-	i = 0;
-	diff = 0;
-	if (n > 0)
+	while (lst)
 	{
-		while (s1[i] != '\0' && s2[i] != '\0' && s1[i] == s2[i] && i < n - 1)
-		{
-			i++;
-		}
-		diff = (int)(unsigned char) s1[i] - (int)(unsigned char) s2[i];
+		tmp = lst;
+		if (lst->cmd_path)
+			free(lst->cmd_path);
+		lst->cmd_path = NULL;
+		if (lst->cmd)
+			ft_cleaner_strstr(lst->cmd);
+		lst->cmd = NULL;
+		lst = lst->next;
+		free(tmp);
 	}
-	return (diff);
 }

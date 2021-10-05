@@ -1,31 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   ft_init_vars.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/23 18:54:48 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/10/04 11:16:52 by sde-alva         ###   ########.fr       */
+/*   Created: 2021/10/03 10:59:16 by sde-alva          #+#    #+#             */
+/*   Updated: 2021/10/04 11:17:41 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_pipex.h"
 
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
+int	ft_init_vars(t_vars *vars)
 {
-	size_t	i;
-	int		diff;
-
-	i = 0;
-	diff = 0;
-	if (n > 0)
-	{
-		while (s1[i] != '\0' && s2[i] != '\0' && s1[i] == s2[i] && i < n - 1)
-		{
-			i++;
-		}
-		diff = (int)(unsigned char) s1[i] - (int)(unsigned char) s2[i];
-	}
-	return (diff);
+	vars->infile = NULL;
+	vars->outfile = NULL;
+	vars->path = NULL;
+	vars->commands = NULL;
+	return (0);
 }

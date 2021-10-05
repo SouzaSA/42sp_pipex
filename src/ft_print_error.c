@@ -1,31 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libftpipex.h                                       :+:      :+:    :+:   */
+/*   ft_print_help.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/29 12:01:42 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/09/29 19:10:37 by sde-alva         ###   ########.fr       */
+/*   Created: 2021/09/29 13:54:13 by sde-alva          #+#    #+#             */
+/*   Updated: 2021/10/04 12:03:33 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFTPIPEX_H
-# define LIBFTPIPEX_H
-# include <errno.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
+#include "ft_pipex.h"
 
 /* ************************************************************************** */
-/* Macros */
+/* Responsible for put a help mesg in terminal.                               */
 /* ************************************************************************** */
-# define WRONG_PARAMETERS 2000
-
-
-int		ft_error_handler(char *msg, int errnum);
-int		ft_print_help(char *msg);
-void	ft_putendl_fd(char *s, int fd);
-char	**ft_split(char const *s, char c);
-int		ft_strncmp(const char *s1, const char *s2, size_t n);
-#endif
+int	ft_print_error(char *msg)
+{
+	ft_putendl_fd(msg, 2);
+	ft_putendl_fd("Example of use:", 2);
+	ft_putendl_fd("  ./pipex file1 cmd1 cmd2 file2", 2);
+	return (0);
+}

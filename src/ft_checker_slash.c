@@ -1,31 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   ft_checker_slash.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/23 18:54:48 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/10/04 11:16:52 by sde-alva         ###   ########.fr       */
+/*   Created: 2021/10/02 11:32:20 by sde-alva          #+#    #+#             */
+/*   Updated: 2021/10/04 11:17:03 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_pipex.h"
 
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
+/* ************************************************************************** */
+/* Responsible for check if the user are passing a path to a command.         */
+/* ************************************************************************** */
+int	ft_checker_slash(char *str)
 {
-	size_t	i;
-	int		diff;
+	int	i;
 
 	i = 0;
-	diff = 0;
-	if (n > 0)
-	{
-		while (s1[i] != '\0' && s2[i] != '\0' && s1[i] == s2[i] && i < n - 1)
-		{
-			i++;
-		}
-		diff = (int)(unsigned char) s1[i] - (int)(unsigned char) s2[i];
-	}
-	return (diff);
+	if (ft_strcmp(str, "/", 1) == 0 || ft_strcmp(str, "./", 2) == 0 \
+		|| ft_strcmp(str, "../", 3) == 0)
+		i = 1;
+	return (i);
 }

@@ -1,31 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/23 18:54:48 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/10/04 11:16:52 by sde-alva         ###   ########.fr       */
+/*   Created: 2021/07/24 15:58:32 by sde-alva          #+#    #+#             */
+/*   Updated: 2021/10/04 11:16:32 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_pipex.h"
 
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	size_t	i;
-	int		diff;
+	size_t	s1_len;
+	size_t	s2_len;
+	char	*dst;
 
-	i = 0;
-	diff = 0;
-	if (n > 0)
+	dst = NULL;
+	if (s1)
 	{
-		while (s1[i] != '\0' && s2[i] != '\0' && s1[i] == s2[i] && i < n - 1)
+		s1_len = ft_strlen(s1);
+		s2_len = ft_strlen(s2);
+		dst = (char *)malloc((s1_len + s2_len + 1) * sizeof(char));
+		if (dst)
 		{
-			i++;
+			ft_memcpy(dst, s1, s1_len);
+			ft_memcpy(dst + s1_len, s2, s2_len);
+			dst[s1_len + s2_len] = '\0';
 		}
-		diff = (int)(unsigned char) s1[i] - (int)(unsigned char) s2[i];
 	}
-	return (diff);
+	return (dst);
 }
