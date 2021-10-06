@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 10:55:50 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/10/04 14:51:17 by sde-alva         ###   ########.fr       */
+/*   Updated: 2021/10/06 14:51:24 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ static void	ft_clear_vars(t_vars *vars);
 int	main(int argc, char **argv, char **envp)
 {
 	int		i;
+	char	**path;
 	t_vars	vars;
 
 	i = 0;
@@ -27,8 +28,8 @@ int	main(int argc, char **argv, char **envp)
 	else
 	{
 		ft_init_vars(&vars);
-		vars.path = ft_get_path(envp);
-		vars.commands = ft_create_list(argc, argv, vars.path);
+		path = ft_get_path(envp);
+		vars.commands = ft_create_list(argc, argv, path);
 		if (!vars.commands)
 			ft_error_handler("Error on commands", WRONG_PARAMETERS);
 		vars.infile = ft_strdup(argv[1]);
@@ -42,7 +43,7 @@ int	main(int argc, char **argv, char **envp)
 
 static void	ft_clear_vars(t_vars *vars)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (vars)

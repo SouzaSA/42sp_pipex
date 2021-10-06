@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 12:01:42 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/10/04 17:06:03 by sde-alva         ###   ########.fr       */
+/*   Updated: 2021/10/06 14:53:22 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,16 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 
+typedef struct s_cmd
+{
+	int		fd_pipe[2];
+	char	*cmd_path;
+	char	**cmd_params;
+} t_cmd;
+
 typedef struct s_cmd_list
 {
-	char				*cmd_path;
-	char				**cmd;
+	t_cmd				cmd;
 	struct s_cmd_list	*next;
 }	t_cmd_list;
 
@@ -31,7 +37,6 @@ typedef struct s_vars
 {
 	char		*infile;
 	char		*outfile;
-	char		**path;
 	t_cmd_list	*commands;
 }	t_vars;
 
@@ -41,8 +46,8 @@ typedef struct s_vars
 # define WRONG_PARAMETERS 2000
 
 t_cmd_list	*ft_create_list(int argc, char **argv, char **path);
-void		ft_free_list(t_cmd_list *lst);
-t_cmd_list	ft_get_last_cmd(t_cmd_list *cmd_list);
+void		*ft_free_list(t_cmd_list *lst);
+t_cmd_list	*ft_get_last_cmd(t_cmd_list *cmd_list);
 t_cmd_list	*ft_new_node(char *command, char **path_list);
 
 int			ft_checker_slash(char *str);
@@ -50,7 +55,7 @@ void		ft_cleaner_strstr(char **str);
 int			ft_error_handler(char *msg, int errnum);
 char		**ft_get_path(char **envp);
 int			ft_init_vars(t_vars *vars);
-int			ft_pipex(t_vars *vars, char **envp);
+int			ft_pipex(t_vars *vars, t_cmd_list *cmds, char **envp);
 int			ft_print_error(char *msg);
 
 void		*ft_memcpy(void *dest, const void *src, size_t n);

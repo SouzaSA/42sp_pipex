@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 13:40:04 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/10/04 21:13:42 by sde-alva         ###   ########.fr       */
+/*   Updated: 2021/10/06 10:12:11 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,7 @@ int	ft_pipex(t_vars *vars, char **envp)
 static void	child_proc(char *infile, t_cmd_list *cmds, char **envp, int *fd)
 {
 	int			fd_in;
-	t_cmd_list	*last_cmd;
 
-	last_cmd = ft_get_last_cmd(t_cmd_list *cmd_list);
 	fd_in = open(infile, O_RDONLY, 0777);
 	if (fd_in == -1)
 		ft_error_handler("Can't open input file on pipex", errno);
@@ -47,14 +45,6 @@ static void	child_proc(char *infile, t_cmd_list *cmds, char **envp, int *fd)
 	dup2(fd_in, 0);
 	close(fd[0]);
 	execve(cmds->cmd_path, cmds->cmd, envp);
-	while (cmds->nex != last_cmd)
-	{
-		dup2(fd[1], 1);
-		dup2(fd_in, 0);
-		close(fd[0]);
-		execve(cmds->cmd_path, cmds->cmd, envp);
-		cmds = cmds->next;
-	}
 }
 
 void	parent_proc(char *outfile, t_cmd_list *cmd, char **envp, int *fd)

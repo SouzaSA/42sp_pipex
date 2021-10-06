@@ -6,13 +6,15 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 15:11:39 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/10/04 14:21:04 by sde-alva         ###   ########.fr       */
+/*   Updated: 2021/10/06 14:49:18 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_pipex.h"
 
-t_cmd_list	*ft_create_list(int argc, char **argv, char **path)
+static char	**ft_get_path(char **envp);
+
+t_cmd_list	*ft_create_list(int argc, char **argv, char **env_path)
 {
 	int			i;
 	int			is_success;
@@ -21,14 +23,13 @@ t_cmd_list	*ft_create_list(int argc, char **argv, char **path)
 
 	i = 3;
 	is_success = 1;
-	cmd = ft_new_node(argv[2], path);
+	cmd = ft_new_node(argv[2], env_path);
+	rtn_list = cmd;
 	if (!cmd)
 		is_success = 0;
-	if (cmd)
-		rtn_list = cmd;
 	while (i < argc - 1 && is_success)
 	{
-		cmd->next = ft_new_node(argv[i], path);
+		cmd->next = ft_new_node(argv[i], env_path);
 		if (!cmd->next)
 		{
 			is_success = 0;
@@ -38,9 +39,6 @@ t_cmd_list	*ft_create_list(int argc, char **argv, char **path)
 		i++;
 	}
 	if (!is_success)
-	{
-		ft_free_list(rtn_list);
-		rtn_list = NULL;
-	}
+		rtn_list = ft_free_list(rtn_list);
 	return (rtn_list);
 }

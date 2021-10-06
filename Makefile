@@ -36,11 +36,23 @@ SRCS		=	ft_cleaner_strstr.c	\
 				${ADD_UTILS_DIR}	\
 				${ADD_LIST_DIR}
 
+BONUS		=	ft_cleaner_strstr.c	\
+				ft_error_handler.c	\
+				ft_get_path.c	\
+				ft_init_vars.c	\
+				ft_main_bonus.c	\
+				ft_pipex_bonus.c	\
+				ft_print_error.c	\
+				${ADD_UTILS_DIR}	\
+				${ADD_LIST_DIR}
+
 ADD_UTILS_DIR	=	${addprefix ${UTILS_DIR}/,${UTILS}}
 
 ADD_LIST_DIR	=	${addprefix ${LIST_DIR}/,${LIST}}
 
 OBJS		=	${addprefix ./${OBJ_DIR}/,${SRCS:.c=.o}}
+
+BONUS_OBJS	=	${addprefix ./${OBJ_DIR}/,${BONUS:.c=.o}}
 
 RM			=	@rm -rf
 
@@ -55,7 +67,8 @@ ${NAME}:	${OBJS}
 
 all:		${NAME}
 
-bonus:		${NAME}
+bonus:		${BONUS_OBJS}
+			${CC} ${CFLAGS} ${BONUS_OBJS} -o ${NAME} ${INCS}
 
 san:		${OBJS}
 			${CC} ${SAN} ${CFLAGS} ${OBJS} -o ${NAME} ${INCS}
