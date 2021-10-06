@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 21:11:56 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/10/06 16:59:29 by sde-alva         ###   ########.fr       */
+/*   Updated: 2021/10/06 20:19:52 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ static int ft_load_pipes(t_vars *vars)
 		{
 			close(cmds->cmd.fd_pipe[0]);
 			close(cmds->cmd.fd_pipe[1]);
+			cmds = cmds->next;
 		}
 	}
 	return (load_status);

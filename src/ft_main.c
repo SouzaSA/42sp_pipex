@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 10:55:50 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/10/06 14:51:24 by sde-alva         ###   ########.fr       */
+/*   Updated: 2021/10/06 20:19:55 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int	main(int argc, char **argv, char **envp)
 			ft_error_handler("Error on commands", WRONG_PARAMETERS);
 		vars.infile = ft_strdup(argv[1]);
 		vars.outfile = ft_strdup(argv[argc - 1]);
+
 		if (vars.commands)
 			ft_pipex(&vars, envp);
 		ft_clear_vars(&vars);
