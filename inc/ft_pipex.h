@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 12:01:42 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/10/06 14:53:22 by sde-alva         ###   ########.fr       */
+/*   Updated: 2021/10/07 15:28:47 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 typedef struct s_cmd
 {
 	int		fd_pipe[2];
+	int		*anterior_pipe;
 	char	*cmd_path;
 	char	**cmd_params;
 } t_cmd;
@@ -48,7 +49,8 @@ typedef struct s_vars
 t_cmd_list	*ft_create_list(int argc, char **argv, char **path);
 void		*ft_free_list(t_cmd_list *lst);
 t_cmd_list	*ft_get_last_cmd(t_cmd_list *cmd_list);
-t_cmd_list	*ft_new_node(char *command, char **path_list);
+void		ft_init_cmd(t_cmd *cmd, char *path, char **params, int *ant_pipe);
+t_cmd_list	*ft_new_node(char *cmd, char **path_list, int *ant_pipe);
 
 int			ft_checker_slash(char *str);
 void		ft_cleaner_strstr(char **str);

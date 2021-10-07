@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 15:32:30 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/10/06 10:09:58 by sde-alva         ###   ########.fr       */
+/*   Updated: 2021/10/07 12:39:48 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ void	*ft_free_list(t_cmd_list *lst)
 	while (lst)
 	{
 		tmp = lst;
-		if (lst->cmd_path)
-			free(lst->cmd_path);
-		lst->cmd_path = NULL;
-		if (lst->cmd)
-			ft_cleaner_strstr(lst->cmd);
-		lst->cmd = NULL;
+		if (lst->cmd.cmd_path)
+			free(lst->cmd.cmd_path);
+		lst->cmd.cmd_path = NULL;
+		if (lst->cmd.cmd_params)
+			ft_cleaner_strstr(lst->cmd.cmd_params);
+		lst->cmd.cmd_params = NULL;
 		lst = lst->next;
 		free(tmp);
 	}

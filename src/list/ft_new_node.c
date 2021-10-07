@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 14:50:30 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/10/06 13:58:35 by sde-alva         ###   ########.fr       */
+/*   Updated: 2021/10/07 16:31:31 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 static char	*ft_check_path(char *command, char **path_list);
 
-t_cmd_list	*ft_new_node(char *command, char **path_list)
+t_cmd_list	*ft_new_node(char *cmd, char **path_list, int *ant_pipe)
 {
 	char		**cmd_params;
 	char		*cmd_path;
 	t_cmd_list	*node;
 
 	node = (t_cmd_list *)malloc(sizeof(t_cmd_list));
-	cmd_params = ft_split(command, ' ');
+	cmd_params = ft_split(cmd, ' ');
 	cmd_path = ft_check_path(cmd_params[0], path_list);
 	if (!cmd_path)
 	{
@@ -32,7 +32,7 @@ t_cmd_list	*ft_new_node(char *command, char **path_list)
 	}
 	else
 	{
-		ft_init_cmd(&node->cmd, cmd_path, cmd_params)
+		ft_init_cmd(&node->cmd, cmd_path, cmd_params, ant_pipe);
 		node->next = NULL;
 	}
 	return (node);
@@ -56,8 +56,11 @@ static char	*ft_check_path(char *command, char **path_list)
 		while (path_list[i])
 		{
 			path_cmd = ft_strjoin(path_list[i], cmd_slashed);
+			printf("%s\n", cmd_slashed);
 			if (access(command, X_OK) == 0)
+			{
 				break ;
+			}
 			free (path_cmd);
 			path_cmd = NULL;
 			i++;

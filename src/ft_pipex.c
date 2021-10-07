@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 13:40:04 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/10/06 10:12:11 by sde-alva         ###   ########.fr       */
+/*   Updated: 2021/10/07 12:28:57 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void	child_proc(char *infile, t_cmd_list *cmds, char **envp, int *fd);
 static void	parent_proc(char *outfile, t_cmd_list *cmd, char **envp, int *fd);
 
-int	ft_pipex(t_vars *vars, char **envp)
+int	ft_pipex(t_vars *vars, t_cmd_list *cmds, char **envp)
 {
 	int	fd[2];
 	int	pid;
@@ -44,10 +44,10 @@ static void	child_proc(char *infile, t_cmd_list *cmds, char **envp, int *fd)
 	dup2(fd[1], 1);
 	dup2(fd_in, 0);
 	close(fd[0]);
-	execve(cmds->cmd_path, cmds->cmd, envp);
+	execve(cmds->cmd.cmd_path, cmds->cmd.cmd_params, envp);
 }
 
-void	parent_proc(char *outfile, t_cmd_list *cmd, char **envp, int *fd)
+void	parent_proc(char *outfile, t_cmd_list *cmds, char **envp, int *fd)
 {
 	int		fd_out;
 
@@ -57,5 +57,5 @@ void	parent_proc(char *outfile, t_cmd_list *cmd, char **envp, int *fd)
 	dup2(fd[0], 0);
 	dup2(fd_out, 1);
 	close(fd[1]);
-	execve(cmd->cmd_path, cmd->cmd, envp);
+	execve(cmds->cmd.cmd_path, cmds->cmd.cmd_params, envp);
 }

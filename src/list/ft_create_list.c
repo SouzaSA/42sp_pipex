@@ -6,13 +6,11 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 15:11:39 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/10/06 14:49:18 by sde-alva         ###   ########.fr       */
+/*   Updated: 2021/10/07 16:41:37 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_pipex.h"
-
-static char	**ft_get_path(char **envp);
 
 t_cmd_list	*ft_create_list(int argc, char **argv, char **env_path)
 {
@@ -23,13 +21,13 @@ t_cmd_list	*ft_create_list(int argc, char **argv, char **env_path)
 
 	i = 3;
 	is_success = 1;
-	cmd = ft_new_node(argv[2], env_path);
+	cmd = ft_new_node(argv[2], env_path, NULL);
 	rtn_list = cmd;
 	if (!cmd)
 		is_success = 0;
 	while (i < argc - 1 && is_success)
 	{
-		cmd->next = ft_new_node(argv[i], env_path);
+		cmd->next = ft_new_node(argv[i], env_path, cmd->cmd.fd_pipe);
 		if (!cmd->next)
 		{
 			is_success = 0;

@@ -6,13 +6,15 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 21:11:56 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/10/06 20:19:52 by sde-alva         ###   ########.fr       */
+/*   Updated: 2021/10/07 16:40:57 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_pipex.h"
 
 static void	ft_clear_vars(t_vars *vars);
+static int	ft_load_vars(t_vars *vars, int argc, char **argv, char **envp);
+static int ft_load_pipes(t_vars *vars);
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -34,14 +36,16 @@ int	main(int argc, char **argv, char **envp)
 			rtn = ft_pipex(&vars, vars.commands, envp);
 		ft_clear_vars(&vars);
 	}
+	// while (*envp)
+	// {
+	// 	printf("%s\n", *envp);
+	// 	envp++;
+	// }
 	return (rtn);
 }
 
 static void	ft_clear_vars(t_vars *vars)
 {
-	int	i;
-
-	i = 0;
 	if (vars)
 	{
 		if (vars->infile)
@@ -50,36 +54,41 @@ static void	ft_clear_vars(t_vars *vars)
 			free(vars->outfile);
 		if (vars->commands)
 			ft_free_list(vars->commands);
-		while (vars->path && vars->path[i])
-		{
-			free(vars->path[i]);
-			vars->path[i] = NULL;
-			i++;
-		}
-		if (vars->path)
-			free(vars->path);
 		vars->infile = NULL;
 		vars->outfile = NULL;
 		vars->commands = NULL;
-		vars->path = NULL;
 	}
 }
 
 static int	ft_load_vars(t_vars *vars, int argc, char **argv, char **envp)
 {
+	int		i;
 	int		load_status;
 	char	**path;
 
+	i = 0;
 	load_status = 0;
 	ft_init_vars(vars);
 	path = ft_get_path(envp);
 	vars->commands = ft_create_list(argc, argv, path);
-	if (!vars.commands)
+	if (!vars->commands)
 		load_status = ft_error_handler("Error on commands", WRONG_PARAMETERS);
 	vars->infile = ft_strdup(argv[1]);
 	vars->outfile = ft_strdup(argv[argc - 1]);
 	if (!vars->infile || !vars->outfile)
 		load_status = -1;
+	while(path[i])
+	{
+		free(path[i]);
+		i++;
+	}
+
+	while (*path)
+	{
+		printf("%s\n", *path);
+		path++;
+	}
+	free(path);
 	return (load_status);
 }
 
@@ -90,8 +99,10 @@ static int ft_load_pipes(t_vars *vars)
 	t_cmd_list	*error_cmd;
 
 	cmds = vars->commands;
-	while (cmds->next)
+	load_status = 0;
+	while (cmds && cmds->next)
 	{
+		printf("oi\n"); //tirar
 		load_status = pipe(cmds->cmd.fd_pipe);
 		if (load_status == -1)
 		{

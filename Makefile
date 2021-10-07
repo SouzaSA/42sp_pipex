@@ -16,6 +16,7 @@ SAN			=	-g -fsanitize=address
 LIST		=	ft_create_list.c	\
 				ft_free_list.c	\
 				ft_get_last_cmd.c	\
+				ft_init_cmd.c	\
 				ft_new_node.c
 
 UTILS		=	ft_memcpy.c	\
@@ -26,7 +27,8 @@ UTILS		=	ft_memcpy.c	\
 				ft_strlen.c	\
 				ft_strncmp.c
 
-SRCS		=	ft_cleaner_strstr.c	\
+SRCS		=	ft_checker_slash.c	\
+				ft_cleaner_strstr.c	\
 				ft_error_handler.c	\
 				ft_get_path.c	\
 				ft_init_vars.c	\
@@ -36,7 +38,8 @@ SRCS		=	ft_cleaner_strstr.c	\
 				${ADD_UTILS_DIR}	\
 				${ADD_LIST_DIR}
 
-BONUS		=	ft_cleaner_strstr.c	\
+BONUS		=	ft_checker_slash.c	\
+				ft_cleaner_strstr.c	\
 				ft_error_handler.c	\
 				ft_get_path.c	\
 				ft_init_vars.c	\
