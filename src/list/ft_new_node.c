@@ -56,8 +56,7 @@ static char	*ft_check_path(char *command, char **path_list)
 		while (path_list[i])
 		{
 			path_cmd = ft_strjoin(path_list[i], cmd_slashed);
-			printf("%s\n", cmd_slashed);
-			if (access(command, X_OK) == 0)
+			if (access(path_cmd, X_OK) == 0)
 			{
 				break ;
 			}

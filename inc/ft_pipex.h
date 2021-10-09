@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 12:01:42 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/10/07 15:28:47 by sde-alva         ###   ########.fr       */
+/*   Updated: 2021/10/09 01:15:58 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ typedef struct s_vars
 t_cmd_list	*ft_create_list(int argc, char **argv, char **path);
 void		*ft_free_list(t_cmd_list *lst);
 t_cmd_list	*ft_get_last_cmd(t_cmd_list *cmd_list);
+int			ft_get_list_len(t_cmd_list *cmd_lst);
+t_cmd_list	*ft_get_node_by_num(t_cmd_list *cmd_lst, int pos);
 void		ft_init_cmd(t_cmd *cmd, char *path, char **params, int *ant_pipe);
 t_cmd_list	*ft_new_node(char *cmd, char **path_list, int *ant_pipe);
 

@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 21:11:56 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/10/07 16:40:57 by sde-alva         ###   ########.fr       */
+/*   Updated: 2021/10/08 16:42:59 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int	main(int argc, char **argv, char **envp)
 	// 	printf("%s\n", *envp);
 	// 	envp++;
 	// }
+	printf("fim\n"); // tirar
 	return (rtn);
 }
 
@@ -82,12 +83,6 @@ static int	ft_load_vars(t_vars *vars, int argc, char **argv, char **envp)
 		free(path[i]);
 		i++;
 	}
-
-	while (*path)
-	{
-		printf("%s\n", *path);
-		path++;
-	}
 	free(path);
 	return (load_status);
 }
@@ -102,7 +97,6 @@ static int ft_load_pipes(t_vars *vars)
 	load_status = 0;
 	while (cmds && cmds->next)
 	{
-		printf("oi\n"); //tirar
 		load_status = pipe(cmds->cmd.fd_pipe);
 		if (load_status == -1)
 		{

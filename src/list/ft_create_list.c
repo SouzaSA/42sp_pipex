@@ -12,28 +12,28 @@
 
 #include "ft_pipex.h"
 
-t_cmd_list	*ft_create_list(int argc, char **argv, char **env_path)
+t_cmd_list	*ft_create_list(int argc, char **argv, char **path)
 {
 	int			i;
 	int			is_success;
-	t_cmd_list	*cmd;
+	t_cmd_list	*cmds;
 	t_cmd_list	*rtn_list;
 
 	i = 3;
 	is_success = 1;
-	cmd = ft_new_node(argv[2], env_path, NULL);
-	rtn_list = cmd;
-	if (!cmd)
+	cmds = ft_new_node(argv[2], path, NULL);
+	rtn_list = cmds;
+	if (!cmds)
 		is_success = 0;
 	while (i < argc - 1 && is_success)
 	{
-		cmd->next = ft_new_node(argv[i], env_path, cmd->cmd.fd_pipe);
-		if (!cmd->next)
+		cmds->next = ft_new_node(argv[i], path, cmds->cmd.fd_pipe);
+		if (!cmds->next)
 		{
 			is_success = 0;
 			break ;
 		}
-		cmd = cmd->next;
+		cmds = cmds->next;
 		i++;
 	}
 	if (!is_success)

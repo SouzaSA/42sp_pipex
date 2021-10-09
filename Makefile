@@ -16,6 +16,8 @@ SAN			=	-g -fsanitize=address
 LIST		=	ft_create_list.c	\
 				ft_free_list.c	\
 				ft_get_last_cmd.c	\
+				ft_get_list_len.c	\
+				ft_get_node_by_num.c	\
 				ft_init_cmd.c	\
 				ft_new_node.c
 
