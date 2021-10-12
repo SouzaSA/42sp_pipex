@@ -1,30 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_get_node_by_num.c                               :+:      :+:    :+:   */
+/*   ft_cleaner_strstr.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/08 18:49:19 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/10/08 19:02:36 by sde-alva         ###   ########.fr       */
+/*   Created: 2021/10/03 20:19:55 by sde-alva          #+#    #+#             */
+/*   Updated: 2021/10/12 11:34:30 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_pipex.h"
+#include "ft_pipex_shared.h"
 
-t_cmd_list *ft_get_node_by_num(t_cmd_list *cmd_lst, int pos)
+void	ft_cleaner_strstr(char **str)
 {
-	int 		i;
-	t_cmd_list *node;
+	int	i;
 
-	i = 1;
-	node = NULL;
-	while (cmd_lst)
+	i = 0;
+	while (str && str[i])
 	{
-		if (i == pos)
-			node = cmd_lst;
-		cmd_lst = cmd_lst->next;
+		free(str[i]);
 		i++;
 	}
-	return (node);
+	free(str);
 }

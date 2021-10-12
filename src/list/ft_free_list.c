@@ -6,11 +6,11 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 15:32:30 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/10/07 12:39:48 by sde-alva         ###   ########.fr       */
+/*   Updated: 2021/10/12 11:33:57 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_pipex.h"
+#include "ft_pipex_shared.h"
 
 void	*ft_free_list(t_cmd_list *lst)
 {

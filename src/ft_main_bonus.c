@@ -6,15 +6,14 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 21:11:56 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/10/08 16:42:59 by sde-alva         ###   ########.fr       */
+/*   Updated: 2021/10/12 18:31:08 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_pipex.h"
+#include "ft_pipex_bonus.h"
 
 static void	ft_clear_vars(t_vars *vars);
 static int	ft_load_vars(t_vars *vars, int argc, char **argv, char **envp);
-static int ft_load_pipes(t_vars *vars);
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -23,25 +22,18 @@ int	main(int argc, char **argv, char **envp)
 	t_vars	vars;
 
 	i = 0;
-	rtn = -1;
-	if (argc < 5)
+	rtn = 0;
+	if (argc < 5 || (ft_strcmp(argv[1], "here_doc") == 0 && argc < 6))
 	{
-		ft_error_handler("Wrong parameter list", WRONG_PARAMETERS);
+		rtn = ft_error_handler("Wrong parameter list", WRONG_PARAMETERS);
 	}
 	else
 	{
 		rtn = ft_load_vars(&vars, argc, argv, envp);
-		rtn	= ft_load_pipes(&vars);
 		if (vars.commands && rtn == 0)
 			rtn = ft_pipex(&vars, vars.commands, envp);
 		ft_clear_vars(&vars);
 	}
-	// while (*envp)
-	// {
-	// 	printf("%s\n", *envp);
-	// 	envp++;
-	// }
-	printf("fim\n"); // tirar
 	return (rtn);
 }
 
@@ -53,10 +45,13 @@ static void	ft_clear_vars(t_vars *vars)
 			free(vars->infile);
 		if (vars->outfile)
 			free(vars->outfile);
+		if (vars->limiter)
+			free(vars->limiter);
 		if (vars->commands)
 			ft_free_list(vars->commands);
 		vars->infile = NULL;
 		vars->outfile = NULL;
+		vars->limiter = NULL;
 		vars->commands = NULL;
 	}
 }
@@ -76,45 +71,15 @@ static int	ft_load_vars(t_vars *vars, int argc, char **argv, char **envp)
 		load_status = ft_error_handler("Error on commands", WRONG_PARAMETERS);
 	vars->infile = ft_strdup(argv[1]);
 	vars->outfile = ft_strdup(argv[argc - 1]);
+	if (ft_strcmp(argv[1], "here_doc") == 0)
+		vars->limiter = ft_strdup(argv[2]);
 	if (!vars->infile || !vars->outfile)
 		load_status = -1;
-	while(path[i])
+	while (path[i])
 	{
 		free(path[i]);
 		i++;
 	}
 	free(path);
-	return (load_status);
-}
-
-static int ft_load_pipes(t_vars *vars)
-{
-	int			load_status;
-	t_cmd_list	*cmds;
-	t_cmd_list	*error_cmd;
-
-	cmds = vars->commands;
-	load_status = 0;
-	while (cmds && cmds->next)
-	{
-		load_status = pipe(cmds->cmd.fd_pipe);
-		if (load_status == -1)
-		{
-			ft_error_handler("Can't open pipes", errno);
-			error_cmd = cmds;
-			break ;
-		}
-		cmds = cmds->next;
-	}
-	if (load_status == -1)
-	{
-		cmds = vars->commands;
-		while (cmds != error_cmd)
-		{
-			close(cmds->cmd.fd_pipe[0]);
-			close(cmds->cmd.fd_pipe[1]);
-			cmds = cmds->next;
-		}
-	}
 	return (load_status);
 }

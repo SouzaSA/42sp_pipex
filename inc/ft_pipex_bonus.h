@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pipex.h                                         :+:      :+:    :+:   */
+/*   ft_pipex_bonus.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 12:01:42 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/10/12 12:35:48 by sde-alva         ###   ########.fr       */
+/*   Updated: 2021/10/12 11:37:17 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PIPEX_H
-# define FT_PIPEX_H
+#ifndef FT_PIPEX_BONUS_H
+# define FT_PIPEX_BONUS_H
 # include <errno.h>
 # include <fcntl.h>
 # include <stdio.h>
@@ -27,6 +27,7 @@ typedef struct s_vars
 {
 	char		*infile;
 	char		*outfile;
+	char		*limiter;
 	t_cmd_list	*commands;
 }	t_vars;
 

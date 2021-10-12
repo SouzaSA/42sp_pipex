@@ -1,26 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_get_list_len.c                                  :+:      :+:    :+:   */
+/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/08 18:44:15 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/10/08 18:48:11 by sde-alva         ###   ########.fr       */
+/*   Created: 2021/07/26 20:37:39 by sde-alva          #+#    #+#             */
+/*   Updated: 2021/10/10 18:22:31 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_pipex.h"
 
-int	ft_get_list_len(t_cmd_list *cmd_lst)
+void	ft_putstr_fd(char *s, int fd)
 {
-	int	i;
+	size_t	i;
 
-	i = 0;
-	while (cmd_lst)
+	if (s)
 	{
-		cmd_lst = cmd_lst->next;
-		i++;
+		i = 0;
+		while (s[i] != '\0')
+		{
+			write(fd, s + i, 1);
+			i++;
+		}
 	}
-	return (i);
 }

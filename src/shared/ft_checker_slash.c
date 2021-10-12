@@ -1,28 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_error_handler.c                                 :+:      :+:    :+:   */
+/*   ft_checker_slash.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/29 13:46:43 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/10/04 12:18:47 by sde-alva         ###   ########.fr       */
+/*   Created: 2021/10/02 11:32:20 by sde-alva          #+#    #+#             */
+/*   Updated: 2021/10/12 11:34:25 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_pipex.h"
+#include "ft_pipex_shared.h"
 
 /* ************************************************************************** */
-/* Responsible for error handling of program.                                 */
+/* Responsible for check if the user are passing a path to a command.         */
 /* ************************************************************************** */
-int	ft_error_handler(char *msg, int errnum)
+int	ft_checker_slash(char *str)
 {
-	if (errnum == WRONG_PARAMETERS)
-		ft_print_error(msg);
-	else
-	{
-		errno = errnum;
-		perror(msg);
-	}
-	return (-1);
+	int	has_slash;
+
+	has_slash = 0;
+	if (ft_strncmp(str, "/", 1) == 0 || ft_strncmp(str, "./", 2) == 0 \
+		|| ft_strncmp(str, "../", 3) == 0)
+		has_slash = 1;
+	return (has_slash);
 }

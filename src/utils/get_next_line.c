@@ -1,35 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/24 15:58:32 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/10/12 11:35:36 by sde-alva         ###   ########.fr       */
+/*   Created: 2021/07/30 16:36:56 by sde-alva          #+#    #+#             */
+/*   Updated: 2021/10/12 18:27:46 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_pipex_shared.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*get_next_line(int fd)
 {
-	size_t	s1_len;
-	size_t	s2_len;
-	char	*dst;
+	static char	*to_read = NULL;
+	char		*str;
 
-	dst = NULL;
-	if (s1)
+	str = NULL;
+	if (BUFFER_SIZE > 0 && fd >= 0 && read(fd, str, 0) == 0)
 	{
-		s1_len = ft_strlen(s1);
-		s2_len = ft_strlen(s2);
-		dst = (char *)malloc((s1_len + s2_len + 1) * sizeof(char));
-		if (dst)
+		if (to_read && !to_read[0] && ft_strchr(to_read, '\n'))
+			str = ft_pop_line(&to_read);
+		else
 		{
-			ft_memcpy(dst, s1, s1_len);
-			ft_memcpy(dst + s1_len, s2, s2_len);
-			dst[s1_len + s2_len] = '\0';
+			ft_push_line(fd, &to_read);
+			if (to_read)
+				str = ft_pop_line(&to_read);
 		}
 	}
-	return (dst);
+	if (!str || (to_read && *to_read == '\0'))
+	{
+		free(to_read);
+		to_read = NULL;
+	}
+	return (str);
 }

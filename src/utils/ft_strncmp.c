@@ -6,11 +6,11 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/23 18:54:48 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/10/04 11:16:52 by sde-alva         ###   ########.fr       */
+/*   Updated: 2021/10/12 11:35:46 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_pipex.h"
+#include "ft_pipex_shared.h"
 
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {

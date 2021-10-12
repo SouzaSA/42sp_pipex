@@ -6,11 +6,11 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/23 14:40:59 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/10/04 11:26:19 by sde-alva         ###   ########.fr       */
+/*   Updated: 2021/10/12 11:34:58 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_pipex.h"
+#include "ft_pipex_shared.h"
 
 void	*ft_memcpy(void *dest, const void *src, size_t n)
 {

@@ -6,11 +6,11 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/02 11:45:00 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/10/04 11:17:33 by sde-alva         ###   ########.fr       */
+/*   Updated: 2021/10/12 11:34:47 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_pipex.h"
+#include "ft_pipex_shared.h"
 
 /* ************************************************************************** */
 /* Responsible get the environment PATH, and split it into a array of paths.  */

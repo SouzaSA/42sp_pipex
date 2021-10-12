@@ -1,35 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_print_error.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/24 15:58:32 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/10/12 11:35:36 by sde-alva         ###   ########.fr       */
+/*   Created: 2021/09/29 13:54:13 by sde-alva          #+#    #+#             */
+/*   Updated: 2021/10/12 11:34:52 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_pipex_shared.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+/* ************************************************************************** */
+/* Responsible for put a help mesg in terminal.                               */
+/* ************************************************************************** */
+int	ft_print_error(char *msg)
 {
-	size_t	s1_len;
-	size_t	s2_len;
-	char	*dst;
-
-	dst = NULL;
-	if (s1)
-	{
-		s1_len = ft_strlen(s1);
-		s2_len = ft_strlen(s2);
-		dst = (char *)malloc((s1_len + s2_len + 1) * sizeof(char));
-		if (dst)
-		{
-			ft_memcpy(dst, s1, s1_len);
-			ft_memcpy(dst + s1_len, s2, s2_len);
-			dst[s1_len + s2_len] = '\0';
-		}
-	}
-	return (dst);
+	ft_putendl_fd(msg, 2);
+	ft_putendl_fd("Example of use:", 2);
+	ft_putendl_fd("  ./pipex file1 cmd1 cmd2 file2", 2);
+	return (0);
 }

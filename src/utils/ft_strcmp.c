@@ -1,26 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_cleaner_strstr.c                                :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/03 20:19:55 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/10/04 12:29:01 by sde-alva         ###   ########.fr       */
+/*   Created: 2021/09/05 19:03:02 by sde-alva          #+#    #+#             */
+/*   Updated: 2021/10/12 11:35:25 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_pipex.h"
+#include "ft_pipex_shared.h"
 
-void	ft_cleaner_strstr(char **str)
+int	ft_strcmp(const char *s1, const char *s2)
 {
-	int	i;
+	size_t	i;
+	int		diff;
 
 	i = 0;
-	while (str && str[i])
+	diff = 0;
+	while (s1[i] != '\0' && s2[i] != '\0' && s1[i] == s2[i])
 	{
-		free(str[i]);
 		i++;
 	}
-	free(str);
+	diff = (int)(unsigned char) s1[i] - (int)(unsigned char) s2[i];
+	return (diff);
 }

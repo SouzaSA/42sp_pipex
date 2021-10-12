@@ -6,95 +6,128 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 13:40:04 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/10/09 02:31:12 by sde-alva         ###   ########.fr       */
+/*   Updated: 2021/10/12 18:28:44 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_pipex.h"
+#include "ft_pipex_bonus.h"
 
-static void	child_proc(char *infile, t_cmd_list *cmd, char **envp, int pos);
-static void	parent_proc(char *outfile, t_cmd_list *cmd, char **envp, int pos);
-static void	ft_close_pipes(t_cmd_list *cmds);
+static int	ft_open_files(t_vars *vars, int *fd_in, int *fd_out);
+static int	ft_here_doc(t_vars *vars);
+static int	ft_get_by_limiter(int *fd, t_vars *vars);
+static void	ft_clear_exit(t_vars *vars);
 
 int	ft_pipex(t_vars *vars, t_cmd_list *cmds, char **envp)
 {
-	int	pid;
-	int last_cmd_pos;
-	
-	last_cmd_pos = ft_get_list_len(cmd);
-	pid = fork();
-	if (pid == -1)
-		ft_error_handler("Can't fork process on pipex", errno);
-	if (pid == 0)
-		child_proc(vars->infile, cmds, envp, last_cmd_pos - 1);
-	waitpid(pid, NULL, 0);
-	parent_proc(vars->outfile, ft_get_last_cmd(vars->commands), envp);
-	ft_close_pipes(cmds);
+	int			fd_in;
+	int			fd_out;
+	int			rtn;
+	t_cmd_list	*last_cmd;
+
+	last_cmd = ft_get_last_cmd(vars->commands);
+	rtn = ft_open_files(vars, &fd_in, &fd_out);
+	while (rtn >= 0 && cmds)
+	{
+		ft_forker(cmds, envp, fd_out);
+		cmds = cmds->next;
+	}
+	if (ft_strcmp(vars->infile, "here_doc") != 0)
+		close(fd_in);
+	close(fd_out);
 	return (0);
 }
 
-static void	ft_breeder(char *infile, t_cmd_list *cmds, char **envp, int pos)
+static int	ft_open_files(t_vars *vars, int *fd_in, int *fd_out)
 {
-	int	pid;
-	
-	if (pos > 0)
-		ft_breeder(infile, cmds, envp, pos -1);
-	if (cmds->next->next)
-	{
-		pid = fork();
-		if (pid == -1)
-			ft_error_handler("Can't fork process on pipex", errno);
-		if (pid == 0)
-			child_proc(fd_in, cmds, envp, pos - 1);
-		waitpid(pid, NULL, 0);
-		cmds = cmds->next;
-	}
-}
+	int	rtn;
 
-static void	child_proc(char *infile, t_cmd_list *cmds, char **envp, int pos)
-{
-	int	fd_in;
-
-	fd_in = 0;
-	if (pos == 0)
+	rtn = 0;
+	if (ft_strcmp(vars->infile, "here_doc") == 0)
 	{
-		fd_in = open(infile, O_RDONLY, 0777);
-		if (fd_in == -1)
-			ft_error_handler("Can't open input file on pipex", errno);
-	}
-	dup2(cmds->cmd.fd_pipe[1], 1);
-	if (cmds->cmd.anterior_pipe)
-	{
-		dup2(cmds->cmd.anterior_pipe[0], 0);
-		close(cmds->cmd.anterior_pipe[1]);
+		ft_here_doc(vars);
+		*fd_out = open(vars->outfile, O_CREAT | O_WRONLY | O_APPEND, 0777);
 	}
 	else
 	{
-		dup2(fd_in, 0);
+		*fd_in = open(vars->infile, O_RDONLY);
+		if (*fd_in > 0)
+		{
+			dup2(*fd_in, 0);
+			*fd_out = open(vars->outfile, O_CREAT | O_WRONLY | O_TRUNC, 0777);
+		}
+		else
+		{
+			rtn = ft_error_handler(vars->infile, errno);
+		}
 	}
-	close(cmds->cmd.fd_pipe[0]);
-	execve(cmds->cmd.cmd_path, cmds->cmd.cmd_params, envp);
+	return (rtn);
 }
 
-static void	parent_proc(char *outfile, t_cmd_list *cmds, char **envp, int pos)
+static int	ft_here_doc(t_vars *vars)
 {
-	int		fd_out;
+	int	fd[2];
+	int	pid;
+	int	rtn;
 
-	fd_out = open(outfile, O_WRONLY | O_CREAT | O_TRUNC, 0777);
-	if (fd_out == -1)
-		ft_error_handler("Can't open input file on pipex", errno);
-	dup2(cmds->cmd.anterior_pipe[0], 0);
-	dup2(fd_out, 1);
-	close(cmds->cmd.anterior_pipe[1]);
-	execve(cmds->cmd.cmd_path, cmds->cmd.cmd_params, envp);
-}
-
-static void	ft_close_pipes(t_cmd_list *cmds)
-{
-	while (cmds)
+	rtn = 0;
+	if (pipe(fd) == -1)
+		rtn = ft_error_handler("Can't pipe fds on pipex", errno);
+	pid = fork();
+	if (pid == -1)
+		rtn = ft_error_handler("Can't fork process on pipex", errno);
+	if (pid == 0)
+		ft_get_by_limiter(fd, vars);
+	else
 	{
-		close(cmds->cmd.fd_pipe[0]);
-		close(cmds->cmd.fd_pipe[1]);
-		cmds = cmds->next;
+		waitpid(pid, NULL, 0);
+		close(fd[1]);
+		dup2(fd[0], 0);
+		close(fd[0]);
 	}
+	return (rtn);
+}
+
+static int	ft_get_by_limiter(int *fd, t_vars *vars)
+{
+	int		rtn;
+	char	*line;
+
+	rtn = 0;
+	close(fd[0]);
+	line = get_next_line(0);
+	while (line)
+	{
+		if (ft_strcmp(vars->limiter, line) == -10)
+		{
+			free(line);
+			close(fd[1]);
+			ft_clear_exit(vars);
+		}
+		if (write(fd[1], line, ft_strlen(line)) == -1)
+			rtn = ft_error_handler("Can't write a line on pipe", errno);
+		if (write(fd[1], "\n", 1) == -1)
+			rtn = ft_error_handler("Can't write a new line on pipe", errno);
+		free(line);
+		line = get_next_line(0);
+	}
+	free(line);
+	close(fd[1]);
+	rtn = ft_error_handler("Error on delimiter entrace", errno);
+	exit(rtn);
+}
+
+static void	ft_clear_exit(t_vars *vars)
+{
+	if (vars)
+	{
+		if (vars->infile)
+			free(vars->infile);
+		if (vars->outfile)
+			free(vars->outfile);
+		if (vars->limiter)
+			free(vars->limiter);
+		if (vars->commands)
+			ft_free_list(vars->commands);
+	}
+	exit(0);
 }

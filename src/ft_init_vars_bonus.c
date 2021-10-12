@@ -1,24 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_help.c                                    :+:      :+:    :+:   */
+/*   ft_init_vars_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/29 13:54:13 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/10/04 12:03:33 by sde-alva         ###   ########.fr       */
+/*   Created: 2021/10/03 10:59:16 by sde-alva          #+#    #+#             */
+/*   Updated: 2021/10/12 11:36:05 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_pipex.h"
+#include "ft_pipex_bonus.h"
 
-/* ************************************************************************** */
-/* Responsible for put a help mesg in terminal.                               */
-/* ************************************************************************** */
-int	ft_print_error(char *msg)
+int	ft_init_vars(t_vars *vars)
 {
-	ft_putendl_fd(msg, 2);
-	ft_putendl_fd("Example of use:", 2);
-	ft_putendl_fd("  ./pipex file1 cmd1 cmd2 file2", 2);
+	vars->infile = NULL;
+	vars->outfile = NULL;
+	vars->limiter = NULL;
+	vars->commands = NULL;
 	return (0);
 }

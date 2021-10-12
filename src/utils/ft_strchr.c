@@ -6,11 +6,11 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/23 18:01:59 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/10/04 11:16:05 by sde-alva         ###   ########.fr       */
+/*   Updated: 2021/10/12 11:35:21 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_pipex.h"
+#include "ft_pipex_shared.h"
 
 char	*ft_strchr(const char *s, int c)
 {

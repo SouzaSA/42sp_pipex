@@ -6,15 +6,15 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 14:50:30 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/10/07 16:31:31 by sde-alva         ###   ########.fr       */
+/*   Updated: 2021/10/12 11:40:48 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_pipex.h"
+#include "ft_pipex_shared.h"
 
 static char	*ft_check_path(char *command, char **path_list);
 
-t_cmd_list	*ft_new_node(char *cmd, char **path_list, int *ant_pipe)
+t_cmd_list	*ft_new_node(char *cmd, char **path_list)
 {
 	char		**cmd_params;
 	char		*cmd_path;
@@ -32,7 +32,7 @@ t_cmd_list	*ft_new_node(char *cmd, char **path_list, int *ant_pipe)
 	}
 	else
 	{
-		ft_init_cmd(&node->cmd, cmd_path, cmd_params, ant_pipe);
+		ft_init_cmd(&node->cmd, cmd_path, cmd_params);
 		node->next = NULL;
 	}
 	return (node);
@@ -57,9 +57,7 @@ static char	*ft_check_path(char *command, char **path_list)
 		{
 			path_cmd = ft_strjoin(path_list[i], cmd_slashed);
 			if (access(path_cmd, X_OK) == 0)
-			{
 				break ;
-			}
 			free (path_cmd);
 			path_cmd = NULL;
 			i++;
