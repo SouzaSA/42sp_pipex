@@ -6,7 +6,6 @@ SRC_DIR		=	src
 OBJ_DIR		=	obj
 INC_DIR		=	inc
 UTILS_DIR	=	utils
-LIST_DIR	=	list
 SHARED_DIR	=	shared
 
 CC			=	clang
@@ -14,21 +13,13 @@ CFLAGS		=	-Wall -Wextra -Werror
 INCS		=	-I ${SRC_DIR}/${GNL_DIR} -I ${INC_DIR}
 SAN			=	-g -fsanitize=address
 
-LIST		=	ft_create_list.c	\
-				ft_free_list.c	\
-				ft_get_last_cmd.c	\
-				ft_init_cmd.c	\
-				ft_new_node.c
-
 SHARED		=	ft_checker_slash.c	\
 				ft_cleaner_strstr.c	\
-				ft_error_handler.c	\
-				ft_forker.c	\
-				ft_get_path.c	\
-				ft_print_error.c
+				ft_error_msg.c	\
+				ft_get_cmd_path.c	\
+				ft_get_path.c
 
-UTILS		=	get_next_line_utils.c	\
-				get_next_line.c	\
+UTILS		=	ft_get_next_line.c	\
 				ft_memcpy.c	\
 				ft_putendl_fd.c	\
 				ft_putstr_fd.c	\
@@ -40,23 +31,20 @@ UTILS		=	get_next_line_utils.c	\
 				ft_strlen.c	\
 				ft_strncmp.c
 
-SRCS		=	ft_init_vars.c	\
-				ft_main.c	\
+SRCS		=	ft_main.c	\
+				ft_forker.c	\
 				ft_pipex.c	\
 				${ADD_SHARED_DIR}	\
-				${ADD_UTILS_DIR}	\
-				${ADD_LIST_DIR}
+				${ADD_UTILS_DIR}
 
-BONUS		=	ft_init_vars_bonus.c	\
-				ft_main_bonus.c	\
+BONUS		=	ft_main_bonus.c	\
+				ft_forker_bonus.c	\
+				ft_here_doc_bonus.c	\
 				ft_pipex_bonus.c	\
 				${ADD_SHARED_DIR}	\
-				${ADD_UTILS_DIR}	\
-				${ADD_LIST_DIR}
+				${ADD_UTILS_DIR}
 
 ADD_UTILS_DIR	=	${addprefix ${UTILS_DIR}/,${UTILS}}
-
-ADD_LIST_DIR	=	${addprefix ${LIST_DIR}/,${LIST}}
 
 ADD_SHARED_DIR	=	${addprefix ${SHARED_DIR}/,${SHARED}}
 

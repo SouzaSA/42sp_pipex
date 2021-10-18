@@ -1,18 +1,48 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/01 10:21:23 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/10/12 11:35:50 by sde-alva         ###   ########.fr       */
+/*   Created: 2021/07/30 16:36:56 by sde-alva          #+#    #+#             */
+/*   Updated: 2021/10/16 17:48:01 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_pipex_shared.h"
 
-char	*ft_strjoin_mod(char const *s1, char const *s2)
+static char		*ft_strjoin_mod(char const *s1, char const *s2);
+static size_t	ft_strlen_set(const char *s, const char *set);
+static void		ft_push_line(int fd, char **str_buff);
+static char		*ft_pop_line(char **str_buff);
+
+char	*get_next_line(int fd)
+{
+	static char	*to_read = NULL;
+	char		*str;
+
+	str = NULL;
+	if (BUFFER_SIZE > 0 && fd >= 0 && read(fd, str, 0) == 0)
+	{
+		if (to_read && !to_read[0] && ft_strchr(to_read, '\n'))
+			str = ft_pop_line(&to_read);
+		else
+		{
+			ft_push_line(fd, &to_read);
+			if (to_read)
+				str = ft_pop_line(&to_read);
+		}
+	}
+	if (!str || (to_read && *to_read == '\0'))
+	{
+		free(to_read);
+		to_read = NULL;
+	}
+	return (str);
+}
+
+static char	*ft_strjoin_mod(char const *s1, char const *s2)
 {
 	size_t	i;
 	size_t	s1_len;
@@ -38,7 +68,7 @@ char	*ft_strjoin_mod(char const *s1, char const *s2)
 	return (dst);
 }
 
-size_t	ft_strlen_set(const char *s, const char *set)
+static size_t	ft_strlen_set(const char *s, const char *set)
 {
 	size_t	i;
 	size_t	j;
@@ -65,7 +95,7 @@ size_t	ft_strlen_set(const char *s, const char *set)
 	return (i);
 }
 
-void	ft_push_line(int fd, char **str_buff)
+static void	ft_push_line(int fd, char **str_buff)
 {
 	ssize_t	gotten;
 	char	*tmp;
@@ -94,7 +124,7 @@ void	ft_push_line(int fd, char **str_buff)
 	free(buff);
 }
 
-char	*ft_pop_line(char **str_buff)
+static char	*ft_pop_line(char **str_buff)
 {
 	size_t	i;
 	size_t	line_len;

@@ -6,35 +6,24 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 13:40:04 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/10/12 15:52:04 by sde-alva         ###   ########.fr       */
+/*   Updated: 2021/10/17 21:47:07 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_pipex.h"
 
-int	ft_pipex(t_vars *vars, t_cmd_list *cmds, char **envp)
+int	ft_pipex(t_vars *vars)
 {
-	int			rtn;
-	int			fd_in;
-	int			fd_out;
-	t_cmd_list	*last_cmd;
+	int		rtn;
 
-	rtn = 0;
-	last_cmd = ft_get_last_cmd(vars->commands);
-	fd_in = open(vars->infile, O_RDONLY);
-	if (fd_in < 0)
+	vars->arg_idx = 2;
+	vars->env_path = ft_get_path(vars->envp);
+	while (vars->arg_idx < vars->argc - 1)
 	{
-		rtn = ft_error_handler(vars->infile, errno);
+		rtn = ft_forker(vars);
+		vars->arg_idx++;
 	}
-	else if (rtn >= 0)
-	{
-		fd_out = open(vars->outfile, O_CREAT | O_WRONLY | O_TRUNC, 0777);
-		dup2(fd_in, 0);
-		while (cmds)
-		{
-			rtn = ft_forker(cmds, envp, fd_out);
-			cmds = cmds->next;
-		}
-	}
+	ft_cleaner_strstr(vars->env_path);
+	vars->env_path = NULL;
 	return (rtn);
 }
