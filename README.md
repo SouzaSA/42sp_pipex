@@ -11,7 +11,7 @@ Forker is the main function of the program.
 Está em português no futuro altero.
 
 ##Mandatory part
-
+```
  main
   |
   | ft_pipex
@@ -36,10 +36,11 @@ Está em português no futuro altero.
   |  retorna para o while do ft_pipex onde e acrescenta mais um ao indice e verifica se chegou ao ultimo comando.
   |
   *
-  
+ FIM
+ ```
   
   ##Bonus part
-
+```
                    main
                     |
                     | ft_pipex
@@ -68,3 +69,4 @@ Está em português no futuro altero.
                     |
                     *
                    FIM
+```
