@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 20:04:37 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/10/18 08:19:48 by sde-alva         ###   ########.fr       */
+/*   Updated: 2021/10/18 08:55:46 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,9 +99,9 @@ static int	ft_openfile(t_vars *vars, char *name, int open_type)
 	if (open_type == 0)
 	{
 		if (ft_strcmp(vars->argv[1], "here_doc") == 0)
-			fd_file = open(name, O_CREAT | O_WRONLY | O_APPEND, 0777);
+			fd_file = open(name, O_CREAT | O_WRONLY | O_APPEND, 0666);
 		else
-			fd_file = open(name, O_CREAT | O_WRONLY | O_TRUNC, 0777);
+			fd_file = open(name, O_CREAT | O_WRONLY | O_TRUNC, 0666);
 	}
 	if (open_type == 1)
 	{

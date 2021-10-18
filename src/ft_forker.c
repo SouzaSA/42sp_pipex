@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 20:04:37 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/10/18 08:15:55 by sde-alva         ###   ########.fr       */
+/*   Updated: 2021/10/18 08:55:57 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ static void	ft_parent(t_vars *vars, int *fd_pipe, int pid)
 	{
 		waitpid(pid, NULL, 0);
 		outfile = vars->argv[vars->argc - 1];
-		fd_out = open(outfile, O_CREAT | O_WRONLY | O_TRUNC, 0777);
+		fd_out = open(outfile, O_CREAT | O_WRONLY | O_TRUNC, 0666);
 		if (fd_out < 0)
 		{
 			ft_error_msg(NULL);
