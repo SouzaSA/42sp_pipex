@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 12:01:42 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/10/17 21:49:37 by sde-alva         ###   ########.fr       */
+/*   Updated: 2021/10/18 08:35:00 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,6 @@
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 42
 # endif
-
-typedef struct s_fds
-{
-	int	fd_in;
-	int	fd_out;
-}	t_fds;
 
 typedef struct s_vars
 {
