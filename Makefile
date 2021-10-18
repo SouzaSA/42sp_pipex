@@ -1,9 +1,11 @@
 DEFAULT_GOAL:=  all
 
 NAME		=	pipex
+NAME_BONUS	=	pipex_bonus
 
 SRC_DIR		=	src
 OBJ_DIR		=	obj
+BIN_DIR		=	bin
 INC_DIR		=	inc
 UTILS_DIR	=	utils
 SHARED_DIR	=	shared
@@ -52,6 +54,10 @@ OBJS		=	${addprefix ./${OBJ_DIR}/,${SRCS:.c=.o}}
 
 BONUS_OBJS	=	${addprefix ./${OBJ_DIR}/,${BONUS:.c=.o}}
 
+MANDATORY_FILE	= ${addprefix ${BIN_DIR}/,${NAME}}
+
+BONUS_FILE	= ${addprefix ${BIN_DIR}/,${NAME_BONUS}}
+
 RM			=	@rm -rf
 
 DIR_GUARD	=	@mkdir -p ${@D}
@@ -60,13 +66,23 @@ ${OBJ_DIR}/%.o:	${SRC_DIR}/%.c
 			${DIR_GUARD}
 			${CC} ${CFLAGS} ${INCS} -c $< -o $@
 
-${NAME}:	${OBJS}
-			${CC} ${CFLAGS} ${OBJS} ${INCS} -o ${NAME}
+${NAME}:	${MANDATORY_FILE}
+			cp ${MANDATORY_FILE} ${NAME}
+
+${MANDATORY_FILE}:	${OBJS}
+			${DIR_GUARD}
+			${CC} ${CFLAGS} ${OBJS} ${INCS} -o ${MANDATORY_FILE}
+
+${NAME_BONUS}:	${BONUS_FILE}
+			cp ${BONUS_FILE} ${NAME}
+
+${BONUS_FILE}:	${BONUS_OBJS}
+			${DIR_GUARD}
+			${CC} ${CFLAGS} ${BONUS_OBJS} ${INCS} -o ${BONUS_FILE}
 
 all:		${NAME}
 
-bonus:		${BONUS_OBJS}
-			${CC} ${CFLAGS} ${BONUS_OBJS} -o ${NAME} ${INCS}
+bonus:		${NAME_BONUS}
 
 san:		${OBJS}
 			${CC} ${SAN} ${CFLAGS} ${OBJS} -o ${NAME} ${INCS}
@@ -82,4 +98,4 @@ fclean: 	clean
 
 re:			fclean all
 
-.PHONY:		all bonus san clean fclean re
+.PHONY:		all bonus san clean fclean re ${NAME}
