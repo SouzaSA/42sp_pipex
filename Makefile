@@ -62,23 +62,27 @@ RM			=	@rm -rf
 
 DIR_GUARD	=	@mkdir -p ${@D}
 
+FILE_SIZE	=	stat -c\%s
+
 ${OBJ_DIR}/%.o:	${SRC_DIR}/%.c
 			${DIR_GUARD}
 			${CC} ${CFLAGS} ${INCS} -c $< -o $@
 
 ${NAME}:	${MANDATORY_FILE}
-			cp ${MANDATORY_FILE} ${NAME}
 
 ${MANDATORY_FILE}:	${OBJS}
 			${DIR_GUARD}
 			${CC} ${CFLAGS} ${OBJS} ${INCS} -o ${MANDATORY_FILE}
+			${RM} ${BONUS_FILE}
+			cp ${MANDATORY_FILE} ${NAME}
 
 ${NAME_BONUS}:	${BONUS_FILE}
-			cp ${BONUS_FILE} ${NAME}
 
 ${BONUS_FILE}:	${BONUS_OBJS}
 			${DIR_GUARD}
 			${CC} ${CFLAGS} ${BONUS_OBJS} ${INCS} -o ${BONUS_FILE}
+			${RM} ${MANDATORY_FILE}
+			cp ${BONUS_FILE} ${NAME}
 
 all:		${NAME}
 
