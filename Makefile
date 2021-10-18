@@ -92,6 +92,7 @@ bonus_san:	${BONUS_OBJS}
 
 clean:
 			${RM} ${OBJ_DIR}
+			${RM} ${BIN_DIR}
 
 fclean: 	clean
 			${RM} ${NAME}
