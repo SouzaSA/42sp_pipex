@@ -24,16 +24,19 @@ Está em português no futuro altero.
   |              | executa primeiro comando
   |              * finaliza
   |
-  | retorna para o while do ft_pipex onde e acrescenta mais um ao indice e verifica se chegou ao ultimo comando.
+  | copia a saída do pipe[0] na entrada padrão (0) e fecha o pipe[0]
+  | verifica se é o ultimo comando
+  | retorna para o while do ft_pipex onde e acrescenta mais um ao indice.
   |
   |_______________ pid = 0
   | pai           | filho
-  |               | duplica o o pipe[1] na saida padrão (1) ou se for o último comando com copia a saída padrão no arquivo da saída
-  |               | executa primeiro comando
+  |               | verifica se é o ultimo comando
+  |               | ultimo comando então não faz nada
   |               * finaliza
   |
   |
-  |  retorna para o while do ft_pipex onde e acrescenta mais um ao indice e verifica se chegou ao ultimo comando.
+  | duplica o o pipe[1] na saida padrão (1)
+  | executa ultimo comando;
   |
   *
  FIM
@@ -52,20 +55,23 @@ Está em português no futuro altero.
 | pipe[0] na        |              | duplica o o pipe[1] na saida padrão (1)
 | entrada padrão    |              | executa primeiro comando
 | (0) e fecha o     |              * finaliza
-| pipe[0]           |
-|                   | retorna para o while do ft_pipex onde e acrescenta mais um ao indice e verifica se chegou ao ultimo comando.
+| pipe[0]           | 
+|                   | copia a saída do pipe[0] na entrada padrão (0) e fecha o pipe[0]
+|                   | verifica se é o ultimo comando, caso sim retorna para o while do ft_pipex
+|                   | ft_pipex onde e acrescenta mais um ao indice e verifica se chegou ao ultimo comando,
+|                   | caso contrário sai do laço.
 |__________________<|
                     |
-                    | se for o último comando.
                     |
                     |_______________ pid = 0
                     | pai           | filho
-                    |               | duplica o o pipe[1] na saida padrão (1) ou se for o último comando com copia a saída padrão no arquivo da saída
-                    |               | executa primeiro comando
+                    |               | verifica se é o ultimo comando
+                    |               | ultimo comando então não faz nada
                     |               * finaliza
                     |
                     |
-                    |  retorna para o while do ft_pipex onde e acrescenta mais um ao indice e verifica se chegou ao ultimo comando.
+                    | duplica o o pipe[1] na saida padrão (1)
+                    | executa ultimo comando;
                     |
                     *
                    FIM
