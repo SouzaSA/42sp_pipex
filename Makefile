@@ -10,7 +10,7 @@ INC_DIR		=	inc
 UTILS_DIR	=	utils
 SHARED_DIR	=	shared
 
-CC			=	clang
+CC			=	cc
 CFLAGS		=	-Wall -Wextra -Werror
 INCS		=	-I ${SRC_DIR}/${GNL_DIR} -I ${INC_DIR}
 SAN			=	-g -fsanitize=address
