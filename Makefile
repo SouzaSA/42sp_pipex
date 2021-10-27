@@ -31,7 +31,8 @@ UTILS		=	ft_get_next_line.c	\
 				ft_strdup.c	\
 				ft_strjoin.c	\
 				ft_strlen.c	\
-				ft_strncmp.c
+				ft_strncmp.c	\
+				ft_substr.c
 
 SRCS		=	ft_main.c	\
 				ft_forker.c	\

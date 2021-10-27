@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 11:24:35 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/10/16 19:26:31 by sde-alva         ###   ########.fr       */
+/*   Updated: 2021/10/27 09:32:56 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,8 @@ static char	*ft_join_cmd_path(char *command, char **path_list);
 
 char	*ft_get_cmd_path(char *command, char **path_list)
 {
-	int		i;
 	char	*path_cmd;
 
-	i = 0;
 	path_cmd = NULL;
 	if (ft_checker_slash(command) && access(command, X_OK) == 0)
 		path_cmd = ft_strdup(command);
