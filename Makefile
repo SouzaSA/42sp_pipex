@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2021/12/04 10:58:35 by sde-alva          #+#    #+#              #
+#    Updated: 2021/12/04 11:01:15 by sde-alva         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 DEFAULT_GOAL:=  all
 
 NAME		=	pipex
@@ -19,12 +31,12 @@ SHARED		=	ft_checker_slash.c	\
 				ft_cleaner_strstr.c	\
 				ft_error_msg.c	\
 				ft_get_cmd_path.c	\
-				ft_get_path.c
+				ft_get_path.c	\
+				ft_params_split.c
 
 UTILS		=	ft_get_next_line.c	\
 				ft_memcpy.c	\
 				ft_putendl_fd.c	\
-				ft_putstr_fd.c	\
 				ft_split.c	\
 				ft_strchr.c	\
 				ft_strcmp.c	\
@@ -32,7 +44,9 @@ UTILS		=	ft_get_next_line.c	\
 				ft_strjoin.c	\
 				ft_strlen.c	\
 				ft_strncmp.c	\
-				ft_substr.c
+				ft_strrchr.c	\
+				ft_substr.c	\
+				ft_strtrim.c
 
 SRCS		=	ft_main.c	\
 				ft_forker.c	\
