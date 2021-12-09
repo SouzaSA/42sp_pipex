@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 11:24:35 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/12/08 21:24:53 by sde-alva         ###   ########.fr       */
+/*   Updated: 2021/12/08 21:33:05 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,23 @@ static char	*ft_search_cmd(char *command, char **path_list);
 char	*ft_get_cmd_path(char *command, char **path_list)
 {
 	char	*path_cmd;
+	char	*returm_msg;
 
 	path_cmd = NULL;
-	if (ft_checker_slash(command) && access(command, X_OK) == 0)
+	if (ft_checker_slash(command) && access(command, F_OK & X_OK) == 0)
+	{
 		path_cmd = ft_strdup(command);
+	}
+	else if (ft_checker_slash(command))
+	{
+		returm_msg = ft_strjoin("command not found: ", command);
+		ft_error_msg(returm_msg);
+		free(returm_msg);
+	}
 	else
+	{
 		path_cmd = ft_join_cmd_path(command, path_list);
+	}
 	return (path_cmd);
 }
 
