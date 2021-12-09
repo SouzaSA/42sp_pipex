@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 11:24:35 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/12/08 21:19:00 by sde-alva         ###   ########.fr       */
+/*   Updated: 2021/12/08 21:24:53 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static int	ft_is_clean_str(char *cmd)
 	rtn = 0;
 	while (cmd && cmd[i] != '\0' && cmd[i] == 32)
 		i++;
-	if (i == (int)ft_strlen(cmd) && (int)ft_strlen(cmd) > 0)
+	if (i == (int)ft_strlen(cmd))
 		rtn = 1;
 	return (rtn);
 }
