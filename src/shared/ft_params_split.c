@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 08:33:22 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/12/04 11:16:22 by sde-alva         ###   ########.fr       */
+/*   Updated: 2021/12/08 20:34:20 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	**ft_params_split(char const *params, char c)
 	params_splited = (char **)malloc((num_params + 1) * sizeof(char *));
 	while (i < num_params)
 	{
-		params_splited[i] = ft_strtrim(params_addresses[i], " ");
+		params_splited[i] = ft_strdup(params_addresses[i]);
 		i++;
 	}
 	params_splited[i] = NULL;

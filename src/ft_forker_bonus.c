@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 20:04:37 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/12/04 09:31:23 by sde-alva         ###   ########.fr       */
+/*   Updated: 2021/12/08 21:16:05 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,10 @@ static void	ft_child(t_vars *vars, int *fd_pipe)
 	dup2(fd_pipe[1], 1);
 	close(fd_pipe[1]);
 	if (cmd_path)
+	{
 		execve(cmd_path, cmd_params, vars->envp);
-	ft_error_msg(NULL);
+		ft_error_msg(NULL);
+	}
 	ft_cleaner_exit(vars, cmd_path, cmd_params);
 }
 

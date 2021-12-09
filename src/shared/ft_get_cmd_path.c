@@ -6,13 +6,15 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 11:24:35 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/10/27 09:32:56 by sde-alva         ###   ########.fr       */
+/*   Updated: 2021/12/08 21:19:00 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_pipex_shared.h"
 
 static char	*ft_join_cmd_path(char *command, char **path_list);
+static int	ft_is_clean_str(char *cmd);
+static char	*ft_search_cmd(char *command, char **path_list);
 
 char	*ft_get_cmd_path(char *command, char **path_list)
 {
@@ -28,13 +30,42 @@ char	*ft_get_cmd_path(char *command, char **path_list)
 
 static char	*ft_join_cmd_path(char *command, char **path_list)
 {
+	char	*path_cmd;
+	char	*returm_msg;
+
+	path_cmd = NULL;
+	if (!ft_is_clean_str(command))
+		path_cmd = ft_search_cmd(command, path_list);
+	if (!path_cmd)
+	{
+		returm_msg = ft_strjoin("command not found: ", command);
+		ft_error_msg(returm_msg);
+		free(returm_msg);
+	}
+	return (path_cmd);
+}
+
+static int	ft_is_clean_str(char *cmd)
+{
+	int	i;
+	int	rtn;
+
+	i = 0;
+	rtn = 0;
+	while (cmd && cmd[i] != '\0' && cmd[i] == 32)
+		i++;
+	if (i == (int)ft_strlen(cmd) && (int)ft_strlen(cmd) > 0)
+		rtn = 1;
+	return (rtn);
+}
+
+static char	*ft_search_cmd(char *command, char **path_list)
+{
 	int		i;
 	char	*path_cmd;
 	char	*cmd_slashed;
-	char	*returm_msg;
 
 	i = 0;
-	path_cmd = NULL;
 	cmd_slashed = ft_strjoin("/", command);
 	while (path_list[i])
 	{
@@ -46,11 +77,5 @@ static char	*ft_join_cmd_path(char *command, char **path_list)
 		i++;
 	}
 	free(cmd_slashed);
-	if (!path_cmd)
-	{
-		returm_msg = ft_strjoin("command not found: ", command);
-		ft_error_msg(returm_msg);
-		free(returm_msg);
-	}
 	return (path_cmd);
 }

@@ -6,7 +6,7 @@
 #    By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/04 10:58:35 by sde-alva          #+#    #+#              #
-#    Updated: 2021/12/04 11:01:15 by sde-alva         ###   ########.fr        #
+#    Updated: 2021/12/08 20:39:38 by sde-alva         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,8 +45,7 @@ UTILS		=	ft_get_next_line.c	\
 				ft_strlen.c	\
 				ft_strncmp.c	\
 				ft_strrchr.c	\
-				ft_substr.c	\
-				ft_strtrim.c
+				ft_substr.c
 
 SRCS		=	ft_main.c	\
 				ft_forker.c	\
