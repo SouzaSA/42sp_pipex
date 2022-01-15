@@ -6,16 +6,17 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 08:33:22 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/12/08 20:34:20 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/01/15 17:23:27 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_pipex_shared.h"
 
-static char	**ft_get_param_addresses(char *params, char c);
-static int	ft_params_cnt(char *params, char c);
+static char	**ft_get_param_addresses(char *str, char c);
+static void	ft_params_addr_set(char *str, char c, char **addrs);
+static int	ft_params_cnt(char *str, char c);
 
-char	**ft_params_split(char const *params, char c)
+char	**ft_params_split(char const *str, char c)
 {
 	int		i;
 	int		num_params;
@@ -24,7 +25,7 @@ char	**ft_params_split(char const *params, char c)
 	char	**params_splited;
 
 	i = 0;
-	params_copy = ft_strdup(params);
+	params_copy = ft_strdup(str);
 	num_params = ft_params_cnt(params_copy, c);
 	params_addresses = ft_get_param_addresses(params_copy, c);
 	params_splited = (char **)malloc((num_params + 1) * sizeof(char *));
@@ -39,35 +40,44 @@ char	**ft_params_split(char const *params, char c)
 	return (params_splited);
 }
 
-static char	**ft_get_param_addresses(char *params, char c)
+static char	**ft_get_param_addresses(char *str, char c)
+{
+	char	**addrs;
+
+	addrs = (char **)malloc((ft_params_cnt(str, c) + 1) * sizeof(char *));
+	if (addrs)
+		ft_params_addr_set(str, c, addrs);
+	return (addrs);
+}
+
+static void	ft_params_addr_set(char *str, char c, char **addrs)
 {
 	int		i;
 	int		j;
 	int		not_cnt;
-	char	**addrs;
 
 	i = 0;
 	j = 0;
 	not_cnt = 0;
-	addrs = (char **)malloc((ft_params_cnt(params, c) + 1) * sizeof(char *));
-	while (params[i])
+	while (str[i])
 	{
-		if (!not_cnt && params[i] != c && (i == 0 || params[i - 1] == c))
+		if (!not_cnt && str[i] != c && (i == 0 || str[i - 1] == '\0'))
 		{
-			addrs[j] = &params[i];
-			if (i != 0)
-				params[i - 1] = '\0';
+			addrs[j] = &str[i];
+			if (str[i] == '\'')
+				addrs[j] = &str[i + 1];
 			j++;
 		}
-		if (params[i] == '\'')
+		if (str[i] == '\'')
 			not_cnt = !not_cnt;
+		if (str[i] == '\'' || (!not_cnt && str[i] == c))
+			str[i] = '\0';
 		i++;
 	}
 	addrs[j] = NULL;
-	return (addrs);
 }
 
-static int	ft_params_cnt(char *params, char c)
+static int	ft_params_cnt(char *str, char c)
 {
 	int	i;
 	int	not_cnt;
@@ -76,11 +86,11 @@ static int	ft_params_cnt(char *params, char c)
 	i = 0;
 	not_cnt = 0;
 	num_params = 0;
-	while (params[i])
+	while (str[i])
 	{
-		if (!not_cnt && params[i] != c && (i == 0 || params[i - 1] == c))
+		if (!not_cnt && str[i] != c && (i == 0 || str[i - 1] == c))
 			num_params++;
-		if (params[i] == '\'')
+		if (str[i] == '\'')
 			not_cnt = !not_cnt;
 		i++;
 	}

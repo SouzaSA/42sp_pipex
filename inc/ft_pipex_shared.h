@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 12:01:42 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/12/08 20:39:25 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/01/15 16:45:28 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	ft_cleaner_strstr(char **str);
 int		ft_error_msg(char *msg);
 char	*ft_get_cmd_path(char *command, char **path_list);
 char	**ft_get_path(char **envp);
-char	**ft_params_split(char const *params, char c);
+char	**ft_params_split(char const *str, char c);
 
 char	*get_next_line(int fd);
 void	*ft_memcpy(void *dest, const void *src, size_t n);
